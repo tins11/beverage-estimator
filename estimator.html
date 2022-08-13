@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Estimator</title>
+</head>
+<body onload="window.resizeTo(500,600);">
+    <div id="container">
+        <h3>Estimate time required to chill or heat beverages</h3>
+
+        <p> The initial temperature of the beverage [Celsius degree]: </p> 
+        <textarea id="Tinit" rows="1" cols="5"> 22 </textarea>
+        <br/>
+        
+        <p> Chilling/heating temperature (e.g. fridge/freezer/room/outdoors) [Celsius degree]: </p> 
+        <textarea id="Tambient" rows="1" cols="5"> 6 </textarea> 
+        <br/>
+
+        <p> The target temperature of the beverage [Celsius degree]: </p> 
+        <textarea id="Ttarget" rows="1" cols="5"> 8 </textarea> 
+        <br/> 
+
+        <p> The volume of the beverage [liter] (e.g. 0.33): </p> 
+        <textarea id="volume" rows="1" cols="5"> 0.33 </textarea>
+        <br/><br/>
+
+        <button onclick="calculate()" style="height:50px;width:100px"> Estimate </button> 
+        <br/><hr/>
+
+        <p> Estimated time required [hour : minute]: </p>
+        <p id="result"> nan : nan </p>
+        <script>
+            function calculate() {
+
+                let result = 0; 
+                let Tinit = document.getElementById("Tinit").value;
+                let Tambient = document.getElementById("Tambient").value;
+                let Ttarget = document.getElementById("Ttarget").value;
+                let volume = document.getElementById("volume").value;
+
+                let k = 0.003278 * Math.pow(volume, -0.575323); 
+                //console.log('k', k); 
+                result = (Math.log((Tinit-Tambient)/(Ttarget-Tambient))) / k 
+
+                hours = Math.floor(result / 60); 
+                minutes = Math.floor((result / 60 - Math.floor(result / 60)) * 60);
+
+                document.getElementById("result").innerHTML = hours + ' : ' + minutes;
+            } 
+        </script> 
+    </div>
+</body>
+
+</html>
+
+
+ 
